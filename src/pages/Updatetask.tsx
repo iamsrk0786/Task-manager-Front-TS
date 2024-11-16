@@ -1,24 +1,36 @@
-import React, { useState } from "react";
-import { createTask } from "../services/Taskservice";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import "../styles/Taskform.scss";
+import { getTasks, updateTask } from "../services/Taskservice";
 
-const CreateTask: React.FC = () => {
+const UpdateTask: React.FC = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchTask = async () => {
+      const tasks = await getTasks();
+      const task = tasks.find((task) => task._id === id);
+      if (task) {
+        setTitle(task.title);
+        setDescription(task.description);
+      }
+    };
+
+    fetchTask();
+  }, [id]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await createTask({ title, description, completed: false });
-    setTitle("");
-    setDescription("");
+    await updateTask(id!, { title, description, completed: false });
     navigate("/");
   };
 
   return (
     <div className="task-form">
-      <h1>Create Task</h1>
+      <h1>Update Task</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="title">Title</label>
         <input
@@ -39,11 +51,18 @@ const CreateTask: React.FC = () => {
         />
 
         <button type="submit" className="submit-btn">
-          Create Task
+          Update Task
+        </button>
+        <button
+          type="button"
+          className="cancel-btn"
+          onClick={() => navigate("/")}
+        >
+          Cancel
         </button>
       </form>
     </div>
   );
 };
 
-export default CreateTask;
+export default UpdateTask;
