@@ -26,6 +26,16 @@
       font-size: 0.9rem;
       margin: 0 0 15px 0;
     }
+    .priority-high {
+      color: #e74c3c; // Red for high priority
+    }
+    .priority-medium {
+      color: #f1c40f; // Yellow for medium priority
+    }
+    .priority-low {
+      color: #2ecc71; // Green for low priority
+    }
+    
   
     // Button styles
     button {

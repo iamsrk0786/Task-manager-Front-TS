@@ -6,13 +6,16 @@ import "../styles/Taskform.scss";
 const CreateTask: React.FC = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [priority, setpriority] = useState("");
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await createTask({ title, description, completed: false });
+    await createTask({ title, description,priority:priority as "High" | "Medium" | "Low", completed: false });
     setTitle("");
     setDescription("");
+    setpriority("");
     navigate("/");
   };
 
@@ -37,6 +40,17 @@ const CreateTask: React.FC = () => {
           placeholder="Enter task description"
           rows={4}
         />
+        <label htmlFor="priority">Priority:</label>
+<select
+  id="priority"
+  value={priority}
+  onChange={(e) => setpriority( e.target.value )}
+>
+  <option value="High">High</option>
+  <option value="Medium">Medium</option>
+  <option value="Low">Low</option>
+</select>
+
 
         <button type="submit" className="submit-btn">
           Create Task

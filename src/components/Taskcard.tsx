@@ -13,6 +13,8 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onDelete, onUpdate }) => {
     <div className="task-card">
     <h3>{task.title}</h3>
     <p>{task.description}</p>
+    <p>Priority: <span className={`priority-${task.priority.toLowerCase()}`}>{task.priority}</span></p>
+
     <button className="delete-btn" onClick={() => onDelete(task._id)}>
       Delete
     </button>
