@@ -13,7 +13,7 @@
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
-
+  
   .task-content {
     h3 {
       margin: 0;
@@ -40,6 +40,14 @@
     }
     .statuss-completed {
       color: #2ecc71;
+    }
+   
+   .description {
+      white-space: normal;       
+      word-wrap: break-word; 
+      overflow-wrap: break-word; 
+      word-break: break-word;   
+    //  margin-left : 80px;
     }
 
     &.completed {

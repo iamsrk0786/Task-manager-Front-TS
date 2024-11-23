@@ -17,7 +17,9 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onDelete, onUpdate }) => {
         }`}
       >
         <h3>{task.title}</h3>
-        <p>{task.description}</p>
+        
+    <p className="description">{task.description}</p>
+  
         <p>
           Priority:{" "}
           <span className={`priority-${task.priority?.toLowerCase()}`}>

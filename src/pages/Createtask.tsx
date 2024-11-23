@@ -38,15 +38,19 @@ const CreateTask: React.FC = () => {
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Enter task title"
         />
-
         <label htmlFor="description">Description</label>
-        <textarea
-          id="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="Enter task description"
-          rows={4}
-        />
+<textarea
+  id="description"
+  value={description}
+  onChange={(e) => setDescription(e.target.value)}
+  placeholder="Enter task description"
+  rows={4}
+  maxLength={200} 
+/>
+<p>{description.length} / 200 characters</p>  
+
+
+       
         <label htmlFor="priority">Priority:</label>
         <select
           id="priority"
