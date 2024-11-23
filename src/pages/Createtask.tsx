@@ -7,15 +7,22 @@ const CreateTask: React.FC = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setpriority] = useState("");
+  const [statuss, setStatus] = useState("");
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await createTask({ title, description,priority:priority as "High" | "Medium" | "Low", completed: false });
+    await createTask({
+      title,
+      description,
+      priority: priority as "High" | "Medium" | "Low",
+      statuss: statuss as "To-Do" | "In-Progress" | "Completed",
+    });
     setTitle("");
     setDescription("");
     setpriority("");
+    setStatus("");
     navigate("/");
   };
 
@@ -41,16 +48,25 @@ const CreateTask: React.FC = () => {
           rows={4}
         />
         <label htmlFor="priority">Priority:</label>
-<select
-  id="priority"
-  value={priority}
-  onChange={(e) => setpriority( e.target.value )}
->
-  <option value="High">High</option>
-  <option value="Medium">Medium</option>
-  <option value="Low">Low</option>
-</select>
-
+        <select
+          id="priority"
+          value={priority}
+          onChange={(e) => setpriority(e.target.value)}
+        >
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+        </select>
+        <label htmlFor="status">Status:</label>
+        <select
+          id="statuss"
+          value={statuss}
+          onChange={(e) => setStatus(e.target.value)}
+        >
+          <option value="To-Do">To Do</option>
+          <option value="In-Progress">In Progress</option>
+          <option value="Completed">Completed</option>
+        </select>
 
         <button type="submit" className="submit-btn">
           Create Task

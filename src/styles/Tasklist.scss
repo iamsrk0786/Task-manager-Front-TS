@@ -18,6 +18,7 @@
   
     a {
       display: inline-block;
+      width: 50%;
       margin-bottom: 20px;
       padding: 10px 15px;
       font-size: 1rem;
@@ -36,12 +37,31 @@
     }
   
     .task-card {
-      margin-bottom: 15px; // Space between task cards
+      margin-bottom: 15px; 
     }
   
     .empty-message {
       color: $text-color;
       font-size: 1.2rem;
+      text-align: center;
       margin-top: 20px;
     }
+    .search-input {
+      margin: 20px;
+      padding: 8px;
+      width: 30%;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .sort-dropdown {
+        margin: 20px;
+        padding: 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 30%;
+      
+    }
+    
   }

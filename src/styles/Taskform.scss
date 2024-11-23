@@ -45,17 +45,18 @@
       button {
         padding: 10px 15px;
         font-size: 1rem;
+        margin-top: 15px;
         border: none;
         border-radius: 5px;
         cursor: pointer;
         transition: background-color 0.3s ease;
   
         &.submit-btn {
-          background-color: $secondary-color; // Green for submit action
+          background-color: $submit-color; // Green for submit action
           color: white;
   
           &:hover {
-            background-color: darken($secondary-color, 10%);
+            background-color: darken($submit-color, 10%);
           }
         }
   

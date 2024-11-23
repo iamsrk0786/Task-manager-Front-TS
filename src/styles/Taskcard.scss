@@ -1,68 +1,74 @@
-@use 'variables' as *;
-@use 'mixins';
+@use "variables" as *;
+@use "mixins";
 
 .task-card {
-    background-color: white;
-    border: 1px solid $border-color;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-  
+  border: 1px solid $border-color;
+  padding: 16px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .task-content {
     h3 {
-      color: $primary-color;
-      font-size: 1.25rem;
-      margin: 0 0 10px 0;
+      margin: 0;
+      font-size: 18px;
     }
-  
     p {
-      color: $text-color;
-      font-size: 0.9rem;
-      margin: 0 0 15px 0;
+      margin: 4px 0;
+      font-size: 14px;
     }
     .priority-high {
-      color: #e74c3c; // Red for high priority
+      color: #e74c3c;
     }
     .priority-medium {
-      color: #f1c40f; // Yellow for medium priority
+      color: #17c0eb;
     }
     .priority-low {
-      color: #2ecc71; // Green for low priority
+      color: #2ecc71;
     }
-    
-  
-    // Button styles
-    button {
-      padding: 8px 12px;
-      font-size: 0.9rem;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-  
-      &.delete-btn {
-        background-color: $delete-color; 
-        color: white;
-  
-        &:hover {
-          background-color: #c0392b;
-        }
-      }
-  
-      &.update-btn {
-        background-color: $secondary-color; // Green
-        color: white;
-        margin-left: 10px;
-  
-        &:hover {
-          background-color: darken($secondary-color, 10%);
-        }
+    .statuss-to-do {
+      color: #17c0eb;
+    }
+    .statuss-in-progress {
+      color: $update-color;
+    }
+    .statuss-completed {
+      color: #2ecc71;
+    }
+
+    &.completed {
+      h3,
+      p {
+        text-decoration: line-through;
+        color: gray;
       }
     }
   }
+
+  .task-actions {
+    margin-top: 12px;
+    button {
+      margin-right: 8px;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:first-child {
+        background-color: #dc3545;
+        color: white;
+      }
+
+      &:last-child {
+        background-color: #007bff;
+        color: white;
+      }
+    }
+  }
+}

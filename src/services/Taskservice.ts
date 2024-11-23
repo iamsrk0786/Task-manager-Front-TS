@@ -1,8 +1,10 @@
 import apiClient from "../api";
 import { ITask } from "../types/Task";
 
-export const getTasks = async (): Promise<ITask[]> => {
-  const response = await apiClient.get("/tasks");
+export const getTasks = async (search = "", sort:string|null = ""): Promise<ITask[]> => {
+  const response = await apiClient.get("/tasks", {
+    params: { search, sort },
+  });
   return response.data;
 };
 
