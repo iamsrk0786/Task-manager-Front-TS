@@ -8,6 +8,7 @@ const CreateTask: React.FC = () => {
   const [description, setDescription] = useState("");
   const [priority, setpriority] = useState("");
   const [statuss, setStatus] = useState("");
+  const [dueDate, setDuedate] = useState("");
 
   const navigate = useNavigate();
 
@@ -18,11 +19,13 @@ const CreateTask: React.FC = () => {
       description,
       priority: priority as "High" | "Medium" | "Low",
       statuss: statuss as "To-Do" | "In-Progress" | "Completed",
+      dueDate: new Date(dueDate),
     });
     setTitle("");
     setDescription("");
     setpriority("");
     setStatus("");
+    setDuedate("");
     navigate("/");
   };
 
@@ -49,7 +52,13 @@ const CreateTask: React.FC = () => {
 />
 <p>{description.length} / 200 characters</p>  
 
-
+<label htmlFor="dueDate">Due Date</label>
+      <input
+        type="date"
+        id="dueDate"
+        value={dueDate}
+        onChange={(e) => setDuedate(e.target.value)}
+      />
        
         <label htmlFor="priority">Priority:</label>
         <select
@@ -71,7 +80,8 @@ const CreateTask: React.FC = () => {
           <option value="In-Progress">In Progress</option>
           <option value="Completed">Completed</option>
         </select>
-
+        
+      
         <button type="submit" className="submit-btn">
           Create Task
         </button>

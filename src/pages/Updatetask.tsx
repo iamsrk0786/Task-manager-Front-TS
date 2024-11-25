@@ -9,7 +9,8 @@ const UpdateTask: React.FC = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setpriority] = useState("");
-  const [statuss, setStatus] = useState("");
+  const [statuss, setStatus] = useState("");  
+  const [dueDate, setDuedate] = useState("");
 
   useEffect(() => {
     const fetchTask = async () => {
@@ -20,6 +21,8 @@ const UpdateTask: React.FC = () => {
         setDescription(task.description);
         setpriority(task.priority);
         setStatus(task.statuss);
+        setDuedate("");
+
       }
     };
 
@@ -33,6 +36,8 @@ const UpdateTask: React.FC = () => {
       description,
       priority: priority as "High" | "Medium" | "Low",
       statuss: statuss as "To-Do" | "In-Progress" | "Completed",
+      dueDate: new Date(dueDate),
+
     });
     navigate("/");
   };
@@ -59,6 +64,13 @@ const UpdateTask: React.FC = () => {
   maxLength={200} 
 />
 <p>{description.length} / 200 characters</p>  
+<label htmlFor="dueDate">Due Date</label>
+      <input
+        type="date"
+        id="dueDate"
+        value={dueDate}
+        onChange={(e) => setDuedate(e.target.value)}
+      />
 
        
         <label htmlFor="priority">Priority:</label>
@@ -85,7 +97,13 @@ const UpdateTask: React.FC = () => {
           <option value="In-Progress">In Progress</option>
           <option value="Completed">Completed</option>
         </select>
-
+        <label htmlFor="dueDate">Due Date</label>
+      <input
+        type="date"
+        id="dueDate"
+        value={dueDate}
+        onChange={(e) => setDuedate(e.target.value)}
+      />
         <button type="submit" className="submit-btn">
           Update Task
         </button>

@@ -9,6 +9,8 @@ interface TaskCardProps {
 }
 
 const TaskCard: React.FC<TaskCardProps> = ({ task, onDelete, onUpdate }) => {
+  const isOverdue = task.dueDate && new Date(task.dueDate) < new Date();
+
   return (
     <div className="task-card">
       <div
@@ -26,6 +28,9 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onDelete, onUpdate }) => {
             {task.priority}
           </span>
         </p>
+        <p className={`task-card ${isOverdue ? "overdue" : ""}`}>Due Date: { task.dueDate
+    ? new Date(task.dueDate).toLocaleDateString()
+    : "No due date"}</p>
       </div>
         <p>
           Status:{" "}

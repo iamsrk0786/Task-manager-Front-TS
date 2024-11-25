@@ -30,6 +30,7 @@
     p {
       margin: 4px 0;
       font-size: 14px;
+     
     }
     .priority-high {
       color: #e74c3c;
@@ -40,7 +41,10 @@
     .priority-low {
       color: #2ecc71;
     }
-
+    .overdue {
+      background-color: #ffcccb; 
+      border: 1px solid #ff0000; 
+    }
     .description {
       white-space: normal;
       word-wrap: break-word;

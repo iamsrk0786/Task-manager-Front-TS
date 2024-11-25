@@ -11,7 +11,7 @@ const TaskList: React.FC = () => {
   const [originalTasks, setOriginalTasks] = useState<ITask[]>([]); // All tasks
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState<
-    "title" | "priority" | "status" | null
+    "title" | "priority" | "status" | "dueAsc" | "dueDesc" | null
   >(null);
 
   const navigate = useNavigate();
@@ -71,6 +71,8 @@ const TaskList: React.FC = () => {
         <option value="title">Title</option>
         <option value="priority">Priority</option>
         <option value="status">Status</option>
+        <option value="dueAsc">Due Date (Ascending)</option>
+  <option value="dueDesc">Due Date (Descending)</option>
       </select>
 
     
