@@ -13,7 +13,15 @@
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
-  
+  .statuss-to-do {
+    color: #17c0eb;
+  }
+  .statuss-in-progress {
+    color: $update-color;
+  }
+  .statuss-completed {
+    color: #2ecc71;
+  }
   .task-content {
     h3 {
       margin: 0;
@@ -32,22 +40,13 @@
     .priority-low {
       color: #2ecc71;
     }
-    .statuss-to-do {
-      color: #17c0eb;
-    }
-    .statuss-in-progress {
-      color: $update-color;
-    }
-    .statuss-completed {
-      color: #2ecc71;
-    }
-   
-   .description {
-      white-space: normal;       
-      word-wrap: break-word; 
-      overflow-wrap: break-word; 
-      word-break: break-word;   
-    //  margin-left : 80px;
+
+    .description {
+      white-space: normal;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      word-break: break-word;
+      //  margin-left : 80px;
     }
 
     &.completed {

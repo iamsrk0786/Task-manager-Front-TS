@@ -16,9 +16,9 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onDelete, onUpdate }) => {
           task.statuss === "Completed" ? "completed" : ""
         }`}
       >
-        <h3>{task.title}</h3>
+        <h3>TaskTitle: {task.title}</h3>
         
-    <p className="description">{task.description}</p>
+    <p className="description">TaskDesc: {task.description}</p>
   
         <p>
           Priority:{" "}
@@ -26,13 +26,13 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onDelete, onUpdate }) => {
             {task.priority}
           </span>
         </p>
+      </div>
         <p>
           Status:{" "}
           <span className={`statuss-${task.statuss?.toLowerCase()}`}>
             {task.statuss}
           </span>
         </p>
-      </div>
       <div className="task-actions">
         <button onClick={() => onDelete(task._id)}>Delete Task</button>
         <button onClick={() => onUpdate(task._id)}>Update Task</button>

@@ -6,9 +6,9 @@ import TaskCard from "../components/Taskcard";
 import "../styles/Tasklist.scss";
 import debounce from "lodash.debounce";
 
-
 const TaskList: React.FC = () => {
   const [tasks, setTasks] = useState<ITask[]>([]);
+  const [originalTasks, setOriginalTasks] = useState<ITask[]>([]); // All tasks
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState<
     "title" | "priority" | "status" | null
@@ -18,17 +18,19 @@ const TaskList: React.FC = () => {
 
   useEffect(() => {
     loadTasks(searchQuery, sortOption);
-    // Debounce to delay search input execution
   }, [searchQuery, sortOption]);
 
   const loadTasks = async (search: string = "", sort: string | null = null) => {
     const fetchedTasks = await getTasks(search, sort);
+    if (!search && !sort) {
+      setOriginalTasks(fetchedTasks); // Store the full task list
+    }
     setTasks(fetchedTasks);
   };
 
   const handleSearchChange = debounce((value: string) => {
     setSearchQuery(value);
-  }, 300); // Debounce for 300ms
+  }, 300);
 
   const handleDelete = async (id: string) => {
     await deleteTask(id);
@@ -39,11 +41,19 @@ const TaskList: React.FC = () => {
     navigate(`/update/${id}`);
   };
 
+  const noTasksMessage = () => {
+    if (originalTasks.length === 0) {
+      return "No tasks found. Start by creating a new task!";
+    } else if (tasks.length === 0) {
+      return "No tasks match your search criteria or sorting.";
+    }
+    return null;
+  };
+
   return (
     <div className="task-list">
       <h1>Task List</h1>
 
-      {/* Search Input */}
       <input
         type="text"
         placeholder="Search tasks..."
@@ -51,7 +61,7 @@ const TaskList: React.FC = () => {
         className="search-input"
       />
 
-      {/* Sorting Dropdown */}
+  
       <select
         value={sortOption || ""}
         onChange={(e) => setSortOption(e.target.value as "title" | "priority" | "status")}
@@ -60,13 +70,13 @@ const TaskList: React.FC = () => {
         <option value="">Sort by</option>
         <option value="title">Title</option>
         <option value="priority">Priority</option>
-        <option value="statuss">Status</option>
+        <option value="status">Status</option>
       </select>
 
-      {/* Create Task Link */}
+    
       <Link to={"/create"}>Create Task</Link>
 
-      {/* Task List */}
+  
       {tasks.length > 0 ? (
         tasks.map((task) => (
           <TaskCard
@@ -77,11 +87,7 @@ const TaskList: React.FC = () => {
           />
         ))
       ) : (
-        <p className="empty-message">
-          {tasks.length > 0
-            ? "No tasks match your search criteria or sorting."
-            : "No tasks found. Start by creating a new task!"}
-        </p>
+        <p className="empty-message">{noTasksMessage()}</p>
       )}
     </div>
   );
