@@ -6,27 +6,44 @@ import "../styles/Taskform.scss";
 const CreateTask: React.FC = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [priority, setpriority] = useState("");
+  const [priority, setPriority] = useState("");
   const [statuss, setStatus] = useState("");
-  const [dueDate, setDuedate] = useState("");
+  const [dueDate, setDueDate] = useState("");
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await createTask({
-      title,
-      description,
-      priority: priority as "High" | "Medium" | "Low",
-      statuss: statuss as "To-Do" | "In-Progress" | "Completed",
-      dueDate: new Date(dueDate),
-    });
-    setTitle("");
-    setDescription("");
-    setpriority("");
-    setStatus("");
-    setDuedate("");
-    navigate("/");
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("You must be logged in to create a task.");
+      navigate("/login");
+      return;
+    }
+
+    try {
+      await createTask(
+        {
+          title,
+          description,
+          priority: priority as "High" | "Medium" | "Low",
+          statuss: statuss as "To-Do" | "In-Progress" | "Completed",
+          dueDate: new Date(dueDate),
+        },
+        token // Pass the token
+      );
+
+      alert("Task created successfully!");
+      setTitle("");
+      setDescription("");
+      setPriority("");
+      setStatus("");
+      setDueDate("");
+      navigate("/Tasklist");
+    } catch (error: any) {
+      alert(error.response?.data?.message || "Failed to create task.");
+    }
   };
 
   return (
@@ -42,35 +59,36 @@ const CreateTask: React.FC = () => {
           placeholder="Enter task title"
         />
         <label htmlFor="description">Description</label>
-<textarea
-  id="description"
-  value={description}
-  onChange={(e) => setDescription(e.target.value)}
-  placeholder="Enter task description"
-  rows={4}
-  maxLength={200} 
-/>
-<p>{description.length} / 200 characters</p>  
+        <textarea
+          id="description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="Enter task description"
+          rows={4}
+          maxLength={200}
+        />
+        <p>{description.length} / 200 characters</p>
 
-<label htmlFor="dueDate">Due Date</label>
-      <input
-        type="date"
-        id="dueDate"
-        value={dueDate}
-        onChange={(e) => setDuedate(e.target.value)}
-      />
-       
+        <label htmlFor="dueDate">Due Date</label>
+        <input
+          type="date"
+          id="dueDate"
+          value={dueDate}
+          onChange={(e) => setDueDate(e.target.value)}
+        />
+
         <label htmlFor="priority">Priority:</label>
         <select
           id="priority"
           value={priority}
-          onChange={(e) => setpriority(e.target.value)}
+          onChange={(e) => setPriority(e.target.value)}
         >
           <option value="High">High</option>
           <option value="Medium">Medium</option>
           <option value="Low">Low</option>
         </select>
-        <label htmlFor="status">Status:</label>
+
+        <label htmlFor="statuss">Status:</label>
         <select
           id="statuss"
           value={statuss}
@@ -80,8 +98,7 @@ const CreateTask: React.FC = () => {
           <option value="In-Progress">In Progress</option>
           <option value="Completed">Completed</option>
         </select>
-        
-      
+
         <button type="submit" className="submit-btn">
           Create Task
         </button>

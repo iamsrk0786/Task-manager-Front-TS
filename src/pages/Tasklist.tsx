@@ -17,15 +17,29 @@ const TaskList: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    loadTasks(searchQuery, sortOption);
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("You must be logged in to view tasks.");
+      navigate("/login");
+      return;
+    }
+    loadTasks(searchQuery, sortOption, token);
   }, [searchQuery, sortOption]);
 
-  const loadTasks = async (search: string = "", sort: string | null = null) => {
-    const fetchedTasks = await getTasks(search, sort);
-    if (!search && !sort) {
-      setOriginalTasks(fetchedTasks); // Store the full task list
+  const loadTasks = async (
+    search: string = "",
+    sort: string | null = null,
+    token: string
+  ) => {
+    try {
+      const fetchedTasks = await getTasks(search, sort, token);
+      if (!search && !sort) {
+        setOriginalTasks(fetchedTasks); // Store the full task list
+      }
+      setTasks(fetchedTasks);
+    } catch (error: any) {
+      alert(error.response?.data?.message || "Failed to load tasks.");
     }
-    setTasks(fetchedTasks);
   };
 
   const handleSearchChange = debounce((value: string) => {
@@ -33,8 +47,19 @@ const TaskList: React.FC = () => {
   }, 300);
 
   const handleDelete = async (id: string) => {
-    await deleteTask(id);
-    loadTasks(searchQuery, sortOption);
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("You must be logged in to delete tasks.");
+      navigate("/login");
+      return;
+    }
+
+    try {
+      await deleteTask(id, token);
+      loadTasks(searchQuery, sortOption, token);
+    } catch (error: any) {
+      alert(error.response?.data?.message || "Failed to delete task.");
+    }
   };
 
   const handleUpdate = (id: string) => {
@@ -61,10 +86,11 @@ const TaskList: React.FC = () => {
         className="search-input"
       />
 
-  
       <select
         value={sortOption || ""}
-        onChange={(e) => setSortOption(e.target.value as "title" | "priority" | "status")}
+        onChange={(e) =>
+          setSortOption(e.target.value as "title" | "priority" | "status")
+        }
         className="sort-dropdown"
       >
         <option value="">Sort by</option>
@@ -72,13 +98,11 @@ const TaskList: React.FC = () => {
         <option value="priority">Priority</option>
         <option value="status">Status</option>
         <option value="dueAsc">Due Date (Ascending)</option>
-  <option value="dueDesc">Due Date (Descending)</option>
+        <option value="dueDesc">Due Date (Descending)</option>
       </select>
 
-    
       <Link to={"/create"}>Create Task</Link>
 
-  
       {tasks.length > 0 ? (
         tasks.map((task) => (
           <TaskCard
