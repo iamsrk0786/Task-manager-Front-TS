@@ -6,8 +6,7 @@ const Navbar: React.FC = () => {
   const navigate = useNavigate();
   
   const isLoggedIn = !!localStorage.getItem("token");
-
-  // Handle Logout
+  
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/"); 

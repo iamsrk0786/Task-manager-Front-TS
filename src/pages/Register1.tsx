@@ -2,7 +2,6 @@ import React from "react";
 import AuthForm from "../components/Authform";
 import { registerUser } from "../services/Userservice";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 
 const Register: React.FC = () => {

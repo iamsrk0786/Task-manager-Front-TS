@@ -3,8 +3,6 @@ import AuthForm from "../components/Authform";
 import { loginUser } from "../services/Userservice";
 import { useNavigate } from "react-router-dom";
 
-
-
 const Login: React.FC = () => {
   const navigate = useNavigate();
 

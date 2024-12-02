@@ -56,7 +56,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit }) => {
             id="password"
             placeholder="Enter Your Password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e:any) => setPassword(e.target.value)}
           />
         </div>
         <button type="submit">{type === "register" ? "Register" : "Login"}</button>

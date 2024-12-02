@@ -31,7 +31,7 @@ const CreateTask: React.FC = () => {
           statuss: statuss as "To-Do" | "In-Progress" | "Completed",
           dueDate: new Date(dueDate),
         },
-        token // Pass the token
+        token 
       );
 
       alert("Task created successfully!");

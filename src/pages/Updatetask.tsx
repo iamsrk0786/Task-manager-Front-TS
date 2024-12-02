@@ -33,7 +33,7 @@ const UpdateTask: React.FC = () => {
         }
       } catch (error: any) {
         alert(error.response?.data?.message || "Failed to load task.");
-        navigate("/"); // Redirect if task loading fails
+        navigate("/"); 
       }
     };
 

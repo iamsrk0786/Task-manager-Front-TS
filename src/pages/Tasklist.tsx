@@ -23,24 +23,24 @@ const TaskList: React.FC = () => {
       navigate("/login");
       return;
     }
-    loadTasks(searchQuery, sortOption, token);
+    loadTasks(token,searchQuery, sortOption, );
   }, [searchQuery, sortOption]);
-
   const loadTasks = async (
+    token: string,
     search: string = "",
     sort: string | null = null,
-    token: string
   ) => {
     try {
-      const fetchedTasks = await getTasks(search, sort, token);
+      const fetchedTasks = await getTasks(token,search, sort );
       if (!search && !sort) {
-        setOriginalTasks(fetchedTasks); // Store the full task list
+        setOriginalTasks(fetchedTasks); 
       }
       setTasks(fetchedTasks);
     } catch (error: any) {
-      alert(error.response?.data?.message || "Failed to load tasks.");
+      return (error.response?.data?.message || "Failed to load tasks.");
     }
   };
+
 
   const handleSearchChange = debounce((value: string) => {
     setSearchQuery(value);
@@ -56,7 +56,7 @@ const TaskList: React.FC = () => {
 
     try {
       await deleteTask(id, token);
-      loadTasks(searchQuery, sortOption, token);
+      loadTasks(token,searchQuery, sortOption, );
     } catch (error: any) {
       alert(error.response?.data?.message || "Failed to delete task.");
     }
